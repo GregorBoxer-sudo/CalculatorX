@@ -10,17 +10,19 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 
 apps:
   test:
-    command: usr/lib/jvm/java-14-openjdk-amd64/jre/bin/java -jar $SNAP/calculatorx/CalculatorX.jar
+    command: java -jar $SNAP/calculatorx/ CalcucaltorX.jar
     plugs: [unity7, network, home]
     environment:
       JAVA_HOME: $SNAP/usr/lib/jvm/default-java
-      CLASSPATH: $SNAP/jar/SnapTest.jar
+      CLASSPATH: $SNAP/calculatorx/CalculatorX.jar
       PATH: $SNAP/usr/lib/jvm/default-java/bin:$PATH
 
 parts:
   calculatorx:
     # See 'snapcraft plugins'
-    plugin: dump
-  stage-packages: [openjdk-14-jre, openjdk-14-demo]
     source: https://github.com/GregorBoxer-sudo/CalculatorX.git
-    
+    plugin: dump
+build-packages:
+- ca-certificates
+- ca-certificates-java
+  
